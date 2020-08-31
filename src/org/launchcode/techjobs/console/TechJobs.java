@@ -38,7 +38,7 @@ public class TechJobs {
                 String columnChoice = getUserSelection("List", columnChoices);
 
                 if (columnChoice.equals("all")) {
-                    printJobs(JobData.findAll());
+                    printJobs(JobData.findAll(), actionChoice);
                 } else {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
@@ -61,9 +61,10 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
+
                     System.out.println("Search all fields not yet implemented.");
                 } else {
-                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm), actionChoice);
                 }
             }
         }
@@ -109,8 +110,24 @@ public class TechJobs {
     }
 
     // Print a list of jobs
-    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+    private static void printJobs(ArrayList<HashMap<String, String>> someJobs, String actionChoice) {
+        ArrayList<HashMap<String, String>> data = JobData.findAll();
 
-        System.out.println("printJobs is not implemented yet");
+        if(actionChoice == "list") {
+            for (int x = 0; x < data.size(); x++) {
+                System.out.println("*****");
+                System.out.println("position type: " + data.get(x).get("position type"));
+                System.out.println("name: " + data.get(x).get("name"));
+                System.out.println("employer: " + data.get(x).get("employer"));
+                System.out.println("location: " + data.get(x).get("location"));
+                System.out.println("core competency: " + data.get(x).get("core competency"));
+                System.out.println("*****");
+                System.out.println("");
+            }
+        }
+
+if (data.size() == 0) {
+    System.out.println("No data found");
+}
     }
 }
